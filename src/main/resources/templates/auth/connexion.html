@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::main})}">
 
-</body>
+<main class="scene connexion-page">
+
+    <section class="hall-content connexion-box">
+
+        <p class="eyebrow">GOLO IA</p>
+
+        <h1>Se connecter</h1>
+
+        <form id="loginForm">
+
+            <label for="email">
+                Adresse e-mail
+            </label>
+
+            <input id="email"
+                   type="email"
+                   placeholder="exemple@email.com"
+                   autocomplete="email"
+                   required>
+
+            <label for="password">
+                Mot de passe
+            </label>
+
+            <input id="password"
+                   type="password"
+                   autocomplete="current-password"
+                   required>
+
+            <button class="primary" type="submit">
+                Se connecter
+            </button>
+
+            <p id="loginStatus" role="status"></p>
+
+        </form>
+
+        <p class="subtle">
+            Connexion non disponible pour le moment.
+        </p>
+
+        <a th:href="@{/}">
+            ← Retour à l'accueil
+        </a>
+
+    </section>
+
+</main>
+
 </html>

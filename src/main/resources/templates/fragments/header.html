@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
 <body>
+
+<header th:fragment="header" class="site-header">
+
+    <nav class="navbar-golo">
+
+        <a th:href="@{/}" class="logo">
+            🎩 GOLO IA
+        </a>
+
+        <div class="nav-links">
+            <a th:href="@{/}">Accueil</a>
+            <a th:href="@{/#fonctionnalites}">Fonctionnalités</a>
+            <a th:href="@{/#apropos}">À propos</a>
+        </div>
+
+        <a th:href="@{/connexion}" class="btn-connexion">
+            Se connecter
+        </a>
+
+    </nav>
+
+</header>
 
 </body>
 </html>

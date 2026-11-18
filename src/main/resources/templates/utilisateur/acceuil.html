@@ -1,10 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::main})}">
 
-</body>
+<main>
+
+    <!-- HALL D'ENTRÉE -->
+    <section id="hall" class="scene">
+
+        <div class="hall-content">
+
+            <p class="eyebrow">
+                Bienvenue dans l'univers de GOLO
+            </p>
+
+            <h1>
+                Une rencontre vous attend derrière cette porte.
+            </h1>
+
+            <p>
+                Un assistant qui a du caractère,
+                toujours prêt à vous accompagner.
+            </p>
+
+            <button id="knock" class="primary" type="button">
+                🚪 Frapper à la porte
+            </button>
+
+            <p id="doorStatus">
+                GOLO vous attend !
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- BIBLIOTHÈQUE -->
+    <section id="office" class="scene hidden">
+
+        <div class="office-layout">
+
+            <aside class="character">
+
+                <img th:src="@{/img/golo.png}"
+                     alt="Portrait de GOLO"
+                     class="avatar">
+
+                <div>
+                    <h2>Bienvenue chez moi !</h2>
+                    <p>Installez-vous, je suis tout ouïe.</p>
+                </div>
+
+            </aside>
+
+            <!-- CHATBOT -->
+            <section class="chat">
+
+                <div class="chat-head">
+                    <strong>Conversation avec GOLO</strong>
+
+                    <button id="resetChat"
+                            class="secondary"
+                            type="button">
+                        ↻
+                    </button>
+                </div>
+
+                <div id="messages" class="messages"></div>
+
+                <div class="suggestions">
+
+                    <button type="button"
+                            data-prompt="Aide-moi à organiser ma journée">
+                        📅 M'organiser
+                    </button>
+
+                    <button type="button"
+                            data-prompt="Peux-tu m'aider en programmation ?">
+                        💻 Programmer
+                    </button>
+
+                    <button type="button"
+                            data-prompt="Donne-moi une idée créative">
+                        ✨ Créer
+                    </button>
+
+                </div>
+
+                <form id="chatForm" class="composer">
+
+                    <input id="chatInput"
+                           type="text"
+                           placeholder="Écrivez à GOLO..."
+                           maxlength="500"
+                           required>
+
+                    <button type="submit">➤</button>
+
+                </form>
+
+            </section>
+
+        </div>
+
+    </section>
+
+    <button id="backHall"
+            class="utility"
+            type="button"
+            hidden>
+        ← Retour dans le hall
+    </button>
+
+</main>
+
 </html>

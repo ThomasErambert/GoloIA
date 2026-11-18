@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::main})}">
+
+<main class="scene">
+
+    <section class="hall-content">
+
+        <h1>Exemple de template</h1>
+
+        <p>
+            Cette page utilise le modèle commun de GOLO IA.
+        </p>
+
+        <p>
+            Le header, le footer et le CSS sont partagés.
+        </p>
+
+        <a th:href="@{/static}" class="primary">
+            Retour à l'accueil
+        </a>
+
+    </section>
+
+</main>
+
+</html>

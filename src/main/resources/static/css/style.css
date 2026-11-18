@@ -1,0 +1,279 @@
+:root {
+    --bordeaux: #682d31;
+    --bois: #40231d;
+    --cuivre: #d6a16b;
+    --creme: #fff0d8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #1b100e;
+    color: var(--creme);
+    font-family: Georgia, serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* NAVIGATION */
+
+.site-header {
+    background: #281612;
+    border-bottom: 1px solid var(--cuivre);
+}
+
+.navbar-golo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 5%;
+}
+
+.logo {
+    color: var(--cuivre);
+    font-size: 26px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: var(--creme);
+    text-decoration: none;
+}
+
+.btn-connexion {
+    color: var(--creme);
+    text-decoration: none;
+    border: 1px solid var(--cuivre);
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+/* SCÈNES */
+
+.scene {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-size: cover;
+    background-position: center;
+}
+
+#hall {
+    background-image:
+            linear-gradient(#21131066, #21131099),
+            url("../img/hall.png");
+}
+
+#office {
+    background-image:
+            linear-gradient(#21131066, #21131099),
+            url("../img/bibliotheque.png");
+}
+
+.hidden {
+    display: none;
+}
+
+.hall-content {
+    max-width: 600px;
+    padding: 35px;
+    text-align: center;
+    background: #211310e8;
+    border: 1px solid var(--cuivre);
+    border-radius: 20px;
+}
+
+.eyebrow {
+    color: var(--cuivre);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.primary {
+    display: inline-block;
+    padding: 13px 25px;
+    border: none;
+    border-radius: 25px;
+    background: var(--cuivre);
+    color: #211310;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* BIBLIOTHÈQUE */
+
+.office-layout {
+    width: 100%;
+    max-width: 1100px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 30px;
+    align-items: center;
+}
+
+.character {
+    padding: 25px;
+    background: #211310e8;
+    border-radius: 20px;
+}
+
+.avatar {
+    width: 100px;
+    border-radius: 50%;
+}
+
+/* CHATBOT */
+
+.chat {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    background: #211310f0;
+    border: 1px solid var(--cuivre);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.chat-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: var(--bois);
+}
+
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.bubble {
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    white-space: pre-wrap;
+}
+
+.bot {
+    background: var(--bois);
+}
+
+.user {
+    background: var(--bordeaux);
+    margin-left: 20%;
+}
+
+.suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+}
+
+.suggestions button {
+    background: var(--bois);
+    color: white;
+    border: 1px solid var(--cuivre);
+    border-radius: 20px;
+    padding: 8px;
+}
+
+.composer {
+    display: flex;
+    padding: 15px;
+    gap: 10px;
+}
+
+.composer input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border-radius: 20px;
+}
+
+.composer button {
+    background: var(--cuivre);
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+}
+
+.secondary,
+.utility {
+    padding: 10px;
+    background: var(--bois);
+    color: white;
+    border: 1px solid var(--cuivre);
+    border-radius: 20px;
+}
+
+.utility {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+
+/* CONNEXION */
+
+.connexion-page {
+    background:
+            linear-gradient(#21131088, #211310cc),
+            url("../img/bibliotheque.png") center/cover;
+}
+
+.connexion-box {
+    width: 450px;
+}
+
+.connexion-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.connexion-box input {
+    padding: 12px;
+    border-radius: 8px;
+}
+
+/* FOOTER */
+
+.site-footer {
+    text-align: center;
+    padding: 20px;
+    background: #281612;
+    border-top: 1px solid var(--cuivre);
+}
+
+@media (max-width: 750px) {
+    .navbar-golo {
+        flex-wrap: wrap;
+    }
+
+    .office-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .scene {
+        padding: 20px;
+    }
+
+    .chat {
+        height: 450px;
+    }
+}
