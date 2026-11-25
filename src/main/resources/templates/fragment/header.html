@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- En-tête des pages classiques (affiché quand showHeader = true). Le chat et la connexion ont leur propre mise en page. -->
+<header th:fragment="header" class="app-header">
+    <a class="brand" th:href="@{/chat}" aria-label="PAWLY - Accueil">
+        <span class="avatar avatar--sm"><img th:src="@{/img/pawly-avatar.png}" alt=""></span>
+        <span class="wordmark wordmark--sm">PAWLY</span>
+    </a>
+    <nav class="header-nav" aria-label="Navigation principale">
+        <a class="header-link" th:href="@{/chat}">Chat</a>
+        <a class="header-link" th:href="@{/connexion}">Connexion</a>
+    </nav>
+    <div class="header-actions">
+        <a class="icon-button" th:href="@{/connexion}" aria-label="Profil" title="Profil">
+            <i class="bi bi-person"></i>
+        </a>
+    </div>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="btn btn-danger">
+            Déconnexion
+        </button>
+    </form>
+
+</header>
+</body>
+</html>

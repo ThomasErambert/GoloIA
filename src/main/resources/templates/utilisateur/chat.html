@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::main}, 'PAWLY')}">
+
+<head></head>
+
+<body>
+
+<!--
+    CONTRAT AVEC ChatController (ne pas modifier sans adapter le contrôleur) :
+      - variables du modèle : conversations, conversation (null à l'accueil), modeles, messages
+      - POST /conversations                  -> champs : idModele (obligatoire), prompt
+      - POST /conversations/{id}/messages    -> champ  : prompt
+    Le comportement JavaScript (suggestions, défilement, menu mobile) est dans /js/pawly.js
+    car seul le contenu de <main> est injecté dans le layout.
+-->
+<main class="chat-layout" data-chat-layout>
+
+    <!-- BARRE LATÉRALE : logo, nouveau chat, historique des conversations -->
+    <div th:replace="~{fragment/navbar :: sidebar}"></div>
+    <div class="sidebar-backdrop" data-sidebar-close></div>
+
+    <!-- ZONE PRINCIPALE -->
+    <section class="chat-main">
+
+        <div class="chat-topbar">
+            <button type="button" class="icon-button sidebar-toggle" data-sidebar-toggle
+                    aria-controls="sidebar" aria-label="Ouvrir le menu">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="chat-topbar-actions">
+                <button type="button" class="icon-button" aria-label="Nouveautés" title="Bientôt disponible" disabled>
+                    <i class="bi bi-stars"></i>
+                </button>
+                <a class="icon-button" th:href="@{/connexion}" aria-label="Mon compte" title="Mon compte">
+                    <i class="bi bi-person"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Zone défilante : accueil OU historique des messages -->
+        <div class="chat-scroll" data-chat-scroll>
+
+            <!-- CAS 1 : aucune conversation sélectionnée (page d'accueil + création) -->
+            <div th:if="${conversation == null}" class="chat-welcome">
+                <svg class="welcome-paw" viewBox="0 0 64 64" aria-hidden="true"><use href="#pawly-paw"/></svg>
+                <h1 class="wordmark wordmark--xl">PAWLY</h1>
+                <p class="chat-welcome-tagline">Votre compagnon IA, toujours à vos côtés !</p>
+                <div class="welcome-divider" aria-hidden="true">
+                    <svg class="paw-icon" viewBox="0 0 64 64"><use href="#pawly-paw"/></svg>
+                </div>
+
+                <form th:action="@{/conversations}" method="post" class="composer-form" data-chat-form>
+                    <!-- Sélecteur de modèle IA (requis par le contrôleur : idModele) -->
+                    <div class="model-picker">
+                        <i class="bi bi-cpu" aria-hidden="true"></i>
+                        <label class="visually-hidden" for="idModele">Modèle IA</label>
+                        <select id="idModele" name="idModele" required>
+                            <option value="" disabled selected>Choisissez un modèle IA...</option>
+                            <option th:each="modele : ${modeles}"
+                                    th:value="${modele.id}"
+                                    th:text="${modele.nom}"></option>
+                        </select>
+                    </div>
+                    <div class="composer">
+                        <label class="visually-hidden" for="promptInput">Votre question</label>
+                        <textarea id="promptInput" name="prompt" rows="1"
+                                  placeholder="Posez votre question à PAWLY..." required></textarea>
+                        <button class="composer-send" type="submit" aria-label="Envoyer">
+                            <i class="bi bi-arrow-right"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Suggestions rapides : remplissent le champ #promptInput (voir pawly.js) -->
+                <div class="suggestions">
+                    <button type="button" class="suggestion" data-prompt="Explique-moi ce code">
+                        <i class="bi bi-code-slash"></i> Explique-moi ce code
+                    </button>
+                    <button type="button" class="suggestion" data-prompt="Donne-moi des idées">
+                        <i class="bi bi-lightbulb"></i> Donne-moi des idées
+                    </button>
+                    <button type="button" class="suggestion" data-prompt="Aide-moi à apprendre">
+                        <i class="bi bi-mortarboard"></i> Aide-moi à apprendre
+                    </button>
+                </div>
+            </div>
+
+            <!-- CAS 2 : historique des messages de la conversation active -->
+            <div th:if="${conversation != null}" class="chat-messages">
+                <div th:each="message : ${messages}"
+                     th:with="isUser=${message.typeMessage.name() == 'UTILISATEUR'}"
+                     th:classappend="${isUser} ? 'message--user' : 'message--assistant'"
+                     class="message">
+                    <span th:if="${isUser}" class="message-avatar" aria-hidden="true"><i class="bi bi-person"></i></span>
+                    <span th:unless="${isUser}" class="message-avatar avatar" aria-hidden="true">
+                        <img th:src="@{/img/pawly-avatar.png}" alt="">
+                    </span>
+                    <div class="message-main">
+                        <div class="message-author"
+                             th:text="${isUser} ? 'Vous' : (${conversation.modeleIA?.nom} ?: 'PAWLY')"></div>
+                        <!-- Code Remplacer pour que le chat s'affiche mot par mot
+                        <div class="message-content" th:text="${message.contenu}"></div>-->
+                        <div class="message-content" th:attr="data-message-assistant=${!isUser}" th:text="${message.contenu}"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ZONE DE SAISIE fixe en bas : uniquement dans une conversation existante -->
+        <div th:if="${conversation != null}" class="chat-dock">
+            <form th:action="@{/conversations/{id}/messages(id=${conversation.id})}" method="post"
+                  class="composer-form" data-chat-form>
+                <div class="composer">
+                    <label class="visually-hidden" for="promptInput">Votre message</label>
+                    <textarea id="promptInput" name="prompt" rows="1"
+                              placeholder="Posez votre question à PAWLY..." required></textarea>
+                    <button class="composer-send" type="submit" aria-label="Envoyer">
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </section>
+</main>
+
+</body>
+</html>

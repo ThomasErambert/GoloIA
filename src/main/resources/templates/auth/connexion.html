@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: layout(~{::main}, 'PAWLY - Connexion')}">
+<body>
+<!--
+    CONTRAT AVEC ChatBotController :
+      - POST /connexion -> champs : email, password (rememberMe est envoyé mais ignoré pour l'instant)
+      - messages flash : erreur, information
+-->
+<main th:fragment="main" class="auth-page">
+    <section class="auth-card">
+        <span class="avatar avatar--lg"><img th:src="@{/img/pawly-avatar.png}" alt="Avatar PAWLY"></span>
+        <h1 class="wordmark wordmark--md">PAWLY</h1>
+        <p class="auth-subtitle">Connectez-vous à votre compte</p>
+
+        <div th:if="${erreur}" class="alert alert-danger pawly-alert" role="alert" th:text="${erreur}"></div>
+        <div th:if="${information}" class="alert alert-info pawly-alert" role="status" th:text="${information}"></div>
+
+        <form th:action="@{/connexion}" method="post" class="auth-form">
+            <label class="visually-hidden" for="email">Adresse e-mail</label>
+            <div class="input-with-icon">
+                <i class="bi bi-envelope"></i>
+                <input id="email" name="email" type="email" placeholder="Adresse e-mail"
+                       autocomplete="username" required>
+            </div>
+
+            <label class="visually-hidden" for="password">Mot de passe</label>
+            <div class="input-with-icon">
+                <i class="bi bi-lock"></i>
+                <input id="password" name="password" type="password" placeholder="Mot de passe"
+                       autocomplete="current-password" required>
+                <button class="password-toggle" type="button" data-toggle-password="password"
+                        aria-label="Afficher le mot de passe">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </div>
+
+            <div class="auth-options">
+                <label class="remember-option">
+                    <input type="checkbox" name="rememberMe">
+                    <span>Se souvenir de moi</span>
+                </label>
+                <a href="#" class="text-link" aria-disabled="true"
+                   title="Fonctionnalité à mettre en place">Mot de passe oublié ?</a>
+            </div>
+
+
+            <button class="btn-pawly w-100" type="submit">Se connecter</button>
+        </form>
+
+        <div class="auth-divider"><span>ou</span></div>
+        <button class="btn-google w-100" type="button" disabled
+                title="Connexion Google à configurer ultérieurement">
+            <i class="bi bi-google"></i> Continuer avec Google
+        </button>
+        <p class="signup-text">Pas encore de compte ? <a href="#" aria-disabled="true">Créer un compte</a></p>
+    </section>
+</main>
+</body>
+</html>
